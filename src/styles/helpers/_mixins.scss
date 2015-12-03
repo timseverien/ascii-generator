@@ -1,0 +1,7 @@
+@mixin shadow($color--base) {
+    box-shadow: 0 .125em darken($color--base, 10%);
+}
+
+@mixin text-shadow($color--base) {
+    text-shadow: 0 .0325em darken($color--base, 10%);
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASCII generator</title>
+
+    <link rel="stylesheet" href="assets/styles/style.css">
+</head>
+<body>
+
+<div class="panel form">
+    <h1 class="panel__title">ASCII Generator</h1>
+
+    <div class="panel__text" id="panel-text">
+        <p>This tool is an ASCII generator takes an image and maps each pixel to a character from a character set.</p>
+
+        <ul>
+            <li>Generation is done client-side</li>
+            <li>Character darkness is determined at run-time, allowing use of non-conventional characters</li>
+        </ul>
+
+        <p><a href="https://twitter.com/TimSeverien">@timseverien</a></p>
+    </div>
+
+    <div>
+        <div class="form__group">
+            <label class="form__label form__control file-uploader">
+                <input type="file" accept="image/*" class="form__control" id="input-file">
+                <span class="file-uploader__text">Drop an image here</span>
+                <span class="file-uploader__image" id="input-file-preview"></span>
+            </label>
+        </div>
+        <div class="form__group">
+            <label class="form__label">Character preset:</label>
+            <button class="button" id="btn-preset-ascii">ASCII</button>
+            <button class="button" id="btn-preset-latin">Latin</button>
+            <button class="button" id="btn-preset-emoji">Emoji</button>
+        </div>
+        <div class="form__group">
+            <label form="input-character-set" class="form__label">Character set:</label>
+            <textarea id="input-character-set" class="form__control ascii-input" rows="6"></textarea>
+            <canvas id="character-set-range" class="charset-output"></canvas>
+        </div>
+        <div class="form__group">
+            <label for="input-preset" class="form__label">Characters per line:</label>
+            <input type="number" value="128" class="form__control" id="input-size" min="2" step="1">
+        </div>
+        <div class="form__group">
+            <label for="input-preset" class="form__label">Line-height:</label>
+            <input type="number" value="1.2" class="form__control" id="input-line-height">
+        </div>
+        <div class="form__group">
+            <button class="button button--lg" id="btn-start">Generate</button>
+        </div>
+    </div>
+
+    <button class="button button--sm panel__btn-text" id="btn-panel-text-show">?</button>
+</div>
+
+<pre class="ascii-output"><code id="output"></code></pre>
+
+<a href="https://github.com/timseverien/ascii-generator" class="fork-label">
+    <img src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+        class="fork-label__label"
+        alt="Fork me on GitHub"
+        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+</a>
+
+<script src="assets/scripts/scripts.js"></script>
+<script src="assets/scripts/toggle-button.js"></script>
+<script>
+new App({
+    inputFileElement: document.getElementById('input-file'),
+    inputFilePreviewElement: document.getElementById('input-file-preview'),
+    inputCharacterSetElement: document.getElementById('input-character-set'),
+    inputSizeElement: document.getElementById('input-size'),
+    inputLineHeightElement: document.getElementById('input-line-height'),
+    characterSetRangeElement: document.getElementById('character-set-range'),
+    btnPreset: {
+        ascii: document.getElementById('btn-preset-ascii'),
+        latin: document.getElementById('btn-preset-latin'),
+        emoji: document.getElementById('btn-preset-emoji'),
+    },
+    btnStartElement: document.getElementById('btn-start'),
+    outputElement: document.getElementById('output')
+});
+
+new ToggleButton(document.getElementById('btn-panel-text-show'), document.getElementById('panel-text'));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+.button {
+    @include shadow($color__brand--primary);
+
+    background-color: $color__brand--primary;
+    border: 1px solid darken($color__brand--primary, 10%);
+    border-radius: .25em;
+    color: #fff;
+    display: inline-block;
+    font-weight: 800;
+    outline: 0;
+    padding: .75em 1.5em;
+    transform: translateY(0);
+
+    &:hover,
+    &:focus {
+        background-color: darken($color__brand--primary, 2.5%);
+        box-shadow: none;
+        transform: translateY(.065em);
+    }
+
+    &:active {
+        background-color: darken($color__brand--primary, 5%);
+    }
+
+    &--sm { padding: .25em .75em; }
+}

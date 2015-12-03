@@ -1,0 +1,41 @@
+.file-uploader {
+    $border-width: .125em;
+
+    background-color: transparent;
+    border: $border-width dashed #ccc;
+    border-radius: .5em;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 4em 2em;
+    position: relative;
+
+    &:hover {
+        background-color: rgba($color__brand--primary, .1);
+        border-color: $color__brand--primary;
+    }
+
+    &--preview {
+        color: #fff;
+        position: relative;
+        text-shadow: 0 0 .125em #000;
+    }
+
+    &__text {
+        position: relative;
+        z-index: 1;
+    }
+
+    &__image {
+        background-position: center;
+        background-size: cover;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    &:hover &__image { opacity: .75; }
+
+    input { display: none; }
+}
