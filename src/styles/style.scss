@@ -3,7 +3,8 @@
 @import 'helpers/settings';
 @import 'helpers/mixins';
 
-@import 'vendors/normalize';
+// @import 'vendors/normalize';
+@import '../../bower_components/normalize-css/normalize';
 @import 'base';
 
 @import 'objects/button';
