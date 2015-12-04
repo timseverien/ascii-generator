@@ -5,6 +5,8 @@ import CanvasService from './services/CanvasService';
 
 export default class App {
     constructor(options) {
+        this.imageFile = undefined;
+
         this.inputFileElement = options.inputFileElement;
         this.inputFilePreviewElement = options.inputFilePreviewElement;
         this.inputCharacterSetElement = options.inputCharacterSetElement;
@@ -21,7 +23,7 @@ export default class App {
         this.btnStartElement.addEventListener('click', () => {
             if (!this.isValid()) return;
 
-            this.generateAscii(this.inputFileElement.files[0])
+            this.generateAscii(this.imageFile)
             .then((ascii) => {
                 this.outputElement.innerHTML = this.escapeHtml(ascii);
             });
@@ -29,16 +31,41 @@ export default class App {
     }
 
     addInputEventListeners() {
-        this.inputFileElement.addEventListener('change', () => {
-            if (!this.inputFileElement.files.length) return;
-
+        const handleFile = (file) => {
             this.inputFileElement.parentNode.classList.remove('form__control--error');
 
-            ImageFactory.getImageFromFile(this.inputFileElement.files[0])
+            ImageFactory.getImageFromFile(file)
             .then((image) => {
                 this.inputFilePreviewElement.style.backgroundImage = 'url(' + image.src + ')';
                 this.inputFilePreviewElement.parentNode.classList.add('file-uploader--preview');
+                this.imageFile = file;
+            })
+            .catch((err) => {
+                this.imageFile = undefined;
             });
+        };
+
+        this.inputFileElement.addEventListener('change', () => {
+            if (!this.inputFileElement.files.length) return;
+            handleFile(this.inputFileElement.files[0]);
+        });
+
+        // Enable dropping files
+        this.inputFileElement.parentNode.addEventListener('dragover', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            this.inputFileElement.parentNode.classList.add('file-uploader--highlight');
+        });
+        this.inputFileElement.parentNode.addEventListener('dragleave', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            this.inputFileElement.parentNode.classList.remove('file-uploader--highlight');
+        });
+        this.inputFileElement.parentNode.addEventListener('drop', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+            this.inputFileElement.parentNode.classList.remove('file-uploader--highlight');
         });
 
         this.inputCharacterSetElement.addEventListener('change', () => {
@@ -168,7 +195,7 @@ export default class App {
     isValid() {
         var isValid = true;
 
-        if (!this.inputFileElement.files || this.inputFileElement.files.length === 0) {
+        if (!this.imageFile) {
             this.inputFileElement.parentNode.classList.add('form__control--error');
             isValid = false;
         }

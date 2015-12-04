@@ -9,7 +9,8 @@
     padding: 4em 2em;
     position: relative;
 
-    &:hover {
+    &:hover,
+    &--highlight {
         background-color: rgba($color__brand--primary, .1);
         border-color: $color__brand--primary;
     }
